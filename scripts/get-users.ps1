@@ -2,6 +2,10 @@ Get-ADGroup -Filter {Name -eq "openshiftusers" -or Name -eq "openshiftuserstst"}
 
  Get-ADUser -Filter 'name -eq "W87236"' -Properties Department
 
+Get-ADUser -Filter {department -eq "DevOps"} -Properties *| select displayname,mail,title
+
+Get-ADUser -Filter 'name -eq "W87236"' -Properties memberof | select -expand memberof
+
 
   1 history
    2 cd .\projects\openshift-brugere\
