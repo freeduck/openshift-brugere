@@ -2,6 +2,8 @@ function begin {
 	param (
 		$inputFile
 	)
+	$pathParts = $inputFile.split("\");
+	$depFile = [string]::Join("\", $pathParts[0..($pathParts.length -2)]) + "\departments";
 	Get-Content $inputFile | ForEach-Object {
 		$Line = $_;
 		$users = $Line.split(",");
@@ -21,7 +23,7 @@ function begin {
 		Write-Output $departments
 		$departments.GetEnumerator() | select @{N='Department';E={$_.Key}}, `
 			@{N='KC';E={$_.Value.KC.displayName + ',' + $_.Value.KC.mail}}, `
-			@{N='Brugere';E={$_.Value.users -join ","}}|Export-CSV -Encoding utf8 hesthjort 
+			@{N='Brugere';E={$_.Value.users -join ","}}|Export-CSV -Encoding utf8 $depFile 
 	}
 }
 
